@@ -1,0 +1,20 @@
+--- a/festival.spec	
++++ a/festival.spec	
+@@ -561,7 +561,7 @@ pushd speech_tools
+   #   better optimization.
+   make \
+     CFLAGS="$RPM_OPT_FLAGS -fPIC -fno-strict-aliasing" \
+-    CXXFLAGS="$RPM_OPT_FLAGS  -fPIC -fno-strict-aliasing"
++    CXXFLAGS="$RPM_OPT_FLAGS  -fPIC -fno-strict-aliasing -fno-delete-null-pointer-checks -std=gnu++98"
+ popd
+ 
+ # build the main program
+@@ -573,7 +573,7 @@ export PATH=$(pwd)/bin:$PATH
+ make \
+   FTLIBDIR="%{_datadir}/festival/lib" \
+   CFLAGS="$RPM_OPT_FLAGS -fPIC" \
+-  CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
++  CXXFLAGS="$RPM_OPT_FLAGS -fPIC -fno-delete-null-pointer-checks -std=gnu++98"
+ 
+ # build the patched CMU dictionary
+ pushd lib/dicts/cmu
