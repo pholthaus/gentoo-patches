@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt	2018-08-20 11:02:01.501292409 +0100
++++ b/CMakeLists.txt	2018-08-20 11:07:10.480466907 +0100
+@@ -6,7 +6,7 @@
+ if(NOT ANDROID)
+   find_package(PythonLibs)
+   if(PYTHONLIBS_VERSION_STRING VERSION_LESS 3)
+-    find_package(Boost REQUIRED python)
++    find_package(Boost REQUIRED python27)
+   else()
+     find_package(Boost REQUIRED python3)
+   endif()

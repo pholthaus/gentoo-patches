@@ -1,0 +1,12 @@
+diff -ur a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2018-08-21 11:51:18.287045472 +0100
++++ b/CMakeLists.txt	2018-08-21 11:51:32.511196346 +0100
+@@ -4,7 +4,7 @@
+ find_package(catkin REQUIRED sensor_msgs rosconsole roscpp roscpp_serialization)
+ 
+ find_package(PythonLibs REQUIRED)
+-find_package(Boost REQUIRED COMPONENTS filesystem python)
++find_package(Boost REQUIRED COMPONENTS filesystem python27)
+ 
+ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+ 

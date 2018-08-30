@@ -1,0 +1,11 @@
+--- a/src/visualize_obstacle_distance_node.cpp
++++ b/src/visualize_obstacle_distance_node.cpp
+@@ -17,6 +17,7 @@
+ 
+ #include <string.h>
+ #include <map>
++#include <boost/format.hpp>
+ #include <ros/ros.h>
+ #include <visualization_msgs/MarkerArray.h>
+ #include <cob_control_msgs/ObstacleDistances.h>
+

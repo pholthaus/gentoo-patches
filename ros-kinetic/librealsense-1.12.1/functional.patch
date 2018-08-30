@@ -1,0 +1,10 @@
+--- a/src/types.h	2017-01-20 21:56:31.000000000 +0000
++++ b/src/types.h	2018-04-27 17:10:21.534672309 +0100
+@@ -20,6 +20,7 @@
+ #include <condition_variable>               // For condition_variable
+ #include <memory>                           // For unique_ptr
+ #include <atomic>
++#include <functional>
+ #include <map>          
+ #include <algorithm>
+ 

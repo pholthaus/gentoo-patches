@@ -1,0 +1,11 @@
+diff -u -r a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2018-08-21 11:41:40.185907816 +0100
++++ b/CMakeLists.txt	2018-08-21 11:41:51.473027558 +0100
+@@ -26,7 +26,6 @@
+ 
+ install(
+    FILES
+-        README.rst
+         plugin.xml
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+ )

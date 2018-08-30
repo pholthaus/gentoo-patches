@@ -1,0 +1,13 @@
+--- a/src/debug/debug_obstacle_distance_node.cpp
++++ b/src/debug/debug_obstacle_distance_node.cpp
+@@ -17,6 +17,7 @@
+ 
+ #include <string>
+ #include <map>
++#include <boost/format.hpp>
+ #include <ros/ros.h>
+ #include <visualization_msgs/MarkerArray.h>
+ #include "cob_control_msgs/ObstacleDistance.h"
+-- 
+2.17.0
+

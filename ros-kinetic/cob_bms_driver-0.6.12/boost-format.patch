@@ -1,0 +1,11 @@
+--- a/src/cob_bms_driver_node.cpp	2018-08-20 10:22:34.333331392 +0100
++++ b/src/cob_bms_driver_node.cpp	2018-08-20 10:21:58.788952405 +0100
+@@ -22,6 +22,8 @@
+ #include <stdint.h>
+ #include <endian.h>
+ 
++#include <boost/format.hpp>
++
+ #include <cob_bms_driver/cob_bms_driver_node.h>
+ 
+ using boost::make_shared;

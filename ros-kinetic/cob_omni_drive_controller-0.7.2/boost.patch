@@ -1,0 +1,53 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 92fb587..50f1a7a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,8 @@
+ cmake_minimum_required(VERSION 2.8.3)
+ project(cob_omni_drive_controller)
+ 
++add_compile_options(-std=c++11)
++
+ find_package(catkin REQUIRED COMPONENTS angles controller_interface dynamic_reconfigure geometry_msgs hardware_interface message_generation nav_msgs realtime_tools sensor_msgs std_msgs std_srvs tf tf2 urdf)
+ 
+ find_package(Boost REQUIRED COMPONENTS thread)
+diff --git a/src/param_parser.cpp b/src/param_parser.cpp
+index 89b9a26..410d63e 100644
+--- a/src/param_parser.cpp
++++ b/src/param_parser.cpp
+@@ -133,7 +133,7 @@ bool parseCtrlParams(CtrlParams & params, XmlRpc::XmlRpcValue &wheel, urdf::Mode
+     read_with_default(steer_name, "steer", wheel, std::string());
+     read_with_default(drive_name, "drive", wheel, std::string());
+ 
+-    boost::shared_ptr<const urdf::Joint> steer_joint;
++    std::shared_ptr<const urdf::Joint> steer_joint;
+     if(model && !steer_name.empty()){
+         steer_joint = model->getJoint(steer_name);
+         if(steer_joint){
+@@ -144,7 +144,7 @@ bool parseCtrlParams(CtrlParams & params, XmlRpc::XmlRpcValue &wheel, urdf::Mode
+         ROS_WARN_STREAM("max_steer_rate not set - defaulting to 0.0");
+         params.dMaxSteerRateRadpS = 0.0;
+     }
+-    boost::shared_ptr<const urdf::Joint> drive_joint;
++    std::shared_ptr<const urdf::Joint> drive_joint;
+     if(model && !drive_name.empty()){
+         drive_joint = model->getJoint(drive_name);
+         if(drive_joint){
+@@ -182,7 +182,7 @@ bool parseWheelGeom(WheelGeom & geom, XmlRpc::XmlRpcValue &wheel, MergedXmlRpcSt
+     read_with_default(geom.drive_name, "drive", wheel, std::string());
+     read_with_default(geom.dSteerDriveCoupling, "steer_drive_coupling", wheel, 0.0);
+ 
+-    boost::shared_ptr<const urdf::Joint> steer_joint;
++    std::shared_ptr<const urdf::Joint> steer_joint;
+     urdf::Vector3 steer_pos;
+ 
+     if(model && !geom.steer_name.empty()){
+@@ -226,7 +226,7 @@ bool parseWheelGeom(WheelGeom & geom, XmlRpc::XmlRpcValue &wheel, MergedXmlRpcSt
+     double offset = 0;
+ 
+     if(!read_optional(offset, "wheel_offset", merged)){
+-        boost::shared_ptr<const urdf::Joint> drive_joint;
++        std::shared_ptr<const urdf::Joint> drive_joint;
+         if(model && !geom.drive_name.empty()){
+             drive_joint = model->getJoint(geom.drive_name);
+         }

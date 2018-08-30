@@ -1,0 +1,99 @@
+diff --git a/common/include/distApproxMode.h b/common/include/distApproxMode.h
+index 1d8db8ed..95618d1b 100644
+--- a/common/include/distApproxMode.h
++++ b/common/include/distApproxMode.h
+@@ -115,9 +115,9 @@ public:
+ 
+     std::string getName(){ return std::string("DistApproxMode"); }
+ 
+-    static const float DIST_MIN = 0.3f;
+-    static const float DIST_MAX = 2.0f;
+-    static const double UPDATE_FREQ = 50.0;
++    static constexpr float DIST_MIN = 0.3f;
++    static constexpr float DIST_MAX = 2.0f;
++    static constexpr double UPDATE_FREQ = 50.0;
+ 
+ private:
+     double _timer_inc;
+diff --git a/common/src/modeExecutor.cpp b/common/src/modeExecutor.cpp
+index 28effe1c..244d3340 100644
+--- a/common/src/modeExecutor.cpp
++++ b/common/src/modeExecutor.cpp
+@@ -67,7 +67,7 @@ uint64_t ModeExecutor::execute(boost::shared_ptr<Mode> mode)
+ 		}
+ 	}
+ 	mode->signalColorReady()->connect(boost::bind(&IColorO::setColor, _colorO, _1));
+-	mode->signalColorsReady()->connect(boost::bind(&IColorO::setColorMulti, _colorO, _1));
++// 	mode->signalColorsReady()->connect(boost::bind(&IColorO::setColorMulti, _colorO, _1));
+ 	mode->signalModeFinished()->connect(boost::bind(&ModeExecutor::onModeFinishedReceived, this, _1));
+ 	mode->setActualColor(_activeColor);
+ 	ROS_DEBUG("Attaching Mode %i with prio: %i freq: %f timeout: %f pulses: %i ",
+diff --git a/ros/include/ms35.h b/ros/include/ms35.h
+index 06b79008..6d079afd 100644
+--- a/ros/include/ms35.h
++++ b/ros/include/ms35.h
+@@ -38,10 +38,10 @@ private:
+   SerialIO* _serialIO;
+   std::stringstream _ssOut;
+   static const int PACKAGE_SIZE = 9;
+-  char buffer[PACKAGE_SIZE];
++  unsigned char buffer[PACKAGE_SIZE];
+ 
+-  int sendData(const char* data, size_t len);
+-  unsigned short int getChecksum(const char* data, size_t len);
++  int sendData(const unsigned char* data, size_t len);
++  unsigned short int getChecksum(const unsigned char* data, size_t len);
+ };
+ 
+ #endif
+diff --git a/ros/src/ms35.cpp b/ros/src/ms35.cpp
+index c65e61cb..0a998868 100644
+--- a/ros/src/ms35.cpp
++++ b/ros/src/ms35.cpp
+@@ -33,11 +33,11 @@ MS35::~MS35()
+ bool MS35::init()
+ {
+   bool ret = false;
+-  const char init_data[] = { 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd };
++  const unsigned char init_data[] = { 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd, 0xfd };
+   int init_len = sizeof(init_data) / sizeof(init_data[0]);
+-  const char startup_data[] = { 0xfd, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
++  const unsigned char startup_data[] = { 0xfd, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+   int startup_len = sizeof(startup_data) / sizeof(startup_data[0]);
+-  char init_buf[18];
++  unsigned char init_buf[18];
+ 
+   //write data until controller is ready to receive valid package
+   char tmp = 0xfd;
+@@ -53,14 +53,14 @@ bool MS35::init()
+ 
+   memcpy(&init_buf, init_data, init_len);
+   memcpy(&init_buf[init_len], startup_data, startup_len);
+-  init_buf[init_len+startup_len] = ((char*)&crc)[1];
+-  init_buf[init_len+startup_len+1] = ((char*)&crc)[0];
++  init_buf[init_len+startup_len] = ((unsigned char*)&crc)[1];
++  init_buf[init_len+startup_len+1] = ((unsigned char*)&crc)[0];
+   if(sendData(init_buf, 18) == 18)
+     ret = true;
+   return ret;
+ }
+ 
+-unsigned short int MS35::getChecksum(const char* data, size_t len)
++unsigned short int MS35::getChecksum(const unsigned char* data, size_t len)
+ {
+   unsigned int ret;
+   boost::crc_16_type checksum_agent;
+@@ -68,11 +68,11 @@ unsigned short int MS35::getChecksum(const char* data, size_t len)
+   return checksum_agent.checksum();
+ }
+ 
+-int MS35::sendData(const char* data, size_t len)
++int MS35::sendData(const unsigned char* data, size_t len)
+ {
+   int bytes_wrote = 0;
+ 
+-  bytes_wrote = _serialIO->sendData(data, len);
++  bytes_wrote = _serialIO->sendData((const char*) data, len);
+ 
+   if(bytes_wrote == -1)
+     ROS_WARN("Can not write to serial port. Port closed!");
