@@ -1,0 +1,70 @@
+diff -r -u a/rules/base.xml.in b/rules/base.xml.in
+--- a/rules/base.xml.in	2018-06-04 23:36:13.000000000 +0100
++++ b/rules/base.xml.in	2018-09-03 09:13:21.018745247 +0100
+@@ -5438,6 +5438,12 @@
+             <_description>English (UK, Colemak)</_description>
+           </configItem>
+         </variant>
++        <variant>
++          <configItem>
++            <name>gd</name>
++            <_description>English (German)</_description>
++          </configItem>
++        </variant>
+       </variantList>
+     </layout>
+     <layout>
+diff -r -u a/rules/evdev.xml.in b/rules/evdev.xml.in
+--- a/rules/evdev.xml.in	2018-06-04 23:36:22.000000000 +0100
++++ b/rules/evdev.xml.in	2018-09-03 09:13:25.658797648 +0100
+@@ -5438,6 +5438,12 @@
+             <_description>English (UK, Colemak)</_description>
+           </configItem>
+         </variant>
++        <variant>
++          <configItem>
++            <name>gd</name>
++            <_description>English (German)</_description>
++          </configItem>
++        </variant>
+       </variantList>
+     </layout>
+     <layout>
+diff -r -u a/symbols/gb b/symbols/gb
+--- a/symbols/gb	2018-06-04 23:36:13.000000000 +0100
++++ b/symbols/gb	2018-09-03 09:05:56.804744897 +0100
+@@ -25,6 +25,34 @@
+     include "level3(ralt_switch_multikey)"
+ };
+ 
++default  partial alphanumeric_keys
++xkb_symbols "gd" {
++
++  // Describes the differences between a very simple en_US
++  // keyboard and a very simple U.K. keyboard layout defined by
++  // the SVR4 European Language Supplement and sometimes also
++  // known as the IBM 166 layout. Mod: German umlauts from the US layout.
++
++  include "latin"
++
++  name[Group1]="English (German)";
++
++  key <AD01> { [          q,          Q,      adiaeresis,  Adiaeresis ] };
++  key <AD06> { [          y,          Y,      udiaeresis,  Udiaeresis ] };
++  key <AD10> { [          p,          P,      odiaeresis,  Odiaeresis ] };
++  key <AE02> { [          2,   quotedbl,     twosuperior,   oneeighth ] };
++  key <AE03> { [          3,   sterling,   threesuperior,    sterling ] };
++  key <AE04> { [          4,     dollar,        EuroSign,  onequarter ] };
++
++  key <AC11> { [ apostrophe,         at, dead_circumflex,   dead_caron] };
++  key <TLDE> { [      grave,    notsign,             bar,         bar ] };
++
++  key <BKSL> { [ numbersign, asciitilde,      dead_grave,  dead_breve ] };
++  key <LSGT> { [  backslash,        bar,             bar,   brokenbar ] };
++
++  include "level3(ralt_switch_multikey)"
++};
++
+ partial alphanumeric_keys
+ xkb_symbols "intl" { 
+ 
