@@ -1,18 +1,21 @@
---- a/lookandfeel/contents/logout/Logout.qml	2018-08-29 08:47:35.305403613 +0100
-+++ b/lookandfeel/contents/logout/Logout.qml	2018-08-29 09:08:51.515050875 +0100
-@@ -47,7 +47,11 @@
+diff -r -u a/lookandfeel/contents/logout/Logout.qml b/lookandfeel/contents/logout/Logout.qml
+--- a/lookandfeel/contents/logout/Logout.qml	2018-09-05 14:01:54.801253403 +0100
++++ b/lookandfeel/contents/logout/Logout.qml	2018-09-05 14:02:39.049714821 +0100
+@@ -47,8 +47,12 @@
      function sleepRequested() {
          root.suspendRequested(2);
      }
 - 
+-    property real timeout: 30
 +
 +    function hibernateRequested() {
 +        root.suspendRequested(4);
 +    }
 +
-     property real timeout: 30
++    property real timeout: 10
      property real remainingTime: root.timeout
      property var currentAction: {
+         switch (sdtype) {
 @@ -132,11 +136,20 @@
              spacing: units.largeSpacing * 2
              Layout.alignment: Qt.AlignHCenter
