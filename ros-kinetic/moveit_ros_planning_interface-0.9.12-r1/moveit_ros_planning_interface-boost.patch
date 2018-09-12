@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt	2018-08-02 17:01:24.807090608 +0100
++++ b/CMakeLists.txt	2018-08-02 17:01:33.620182133 +0100
+@@ -11,7 +11,7 @@
+   date_time
+   filesystem
+   program_options
+-  python
++  python27
+   system
+   thread
+ )
