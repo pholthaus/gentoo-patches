@@ -1,0 +1,12 @@
+diff -ur a/src/cpp/CMakeLists.txt b/src/cpp/CMakeLists.txt
+--- a/src/cpp/CMakeLists.txt	2018-11-14 14:32:42.056229755 +0000
++++ b/src/cpp/CMakeLists.txt	2018-11-14 14:32:57.830399240 +0000
+@@ -34,7 +34,7 @@
+     target_link_libraries(flann_cpp -Wl,-whole-archive flann_cpp_s -Wl,-no-whole-archive)
+ 
+     if (BUILD_CUDA_LIB)
+-	    cuda_add_library(flann_cuda SHARED "")
++	    cuda_add_library(flann_cuda SHARED "empty.cpp")
+         set_target_properties(flann_cuda PROPERTIES LINKER_LANGUAGE CXX)
+         target_link_libraries(flann_cuda -Wl,-whole-archive flann_cuda_s -Wl,-no-whole-archive)
+         set_property(TARGET flann_cpp_s PROPERTY COMPILE_DEFINITIONS FLANN_USE_CUDA)
